@@ -7,10 +7,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.context.annotation.Configuration;
+
 /**
  * @author steve
  *
  */
+
+@Configuration
+
 public class Events {
 
 	// nome dell evento

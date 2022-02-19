@@ -9,8 +9,6 @@ public class FsesameOopTicketmasterApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(FsesameOopTicketmasterApplication.class, args);
-		//String json = null;
-		//System.out.println(json);
 		
 	}
 

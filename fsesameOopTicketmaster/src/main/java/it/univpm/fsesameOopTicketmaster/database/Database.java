@@ -21,6 +21,8 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.json.simple.parser.ParseException;
+import org.springframework.stereotype.Repository;
+import org.springframework.web.client.RestTemplate;
 
 import it.univpm.fsesameOopTicketmaster.exceptions.IOException;
 import it.univpm.fsesameOopTicketmaster.model.Events;
@@ -30,9 +32,11 @@ import it.univpm.fsesameOopTicketmaster.service.EventsInterface;
  * @author steve
  *
  */
+
+@Repository
 public class Database implements EventsInterface {
 
-	ArrayList<Events> record = new ArrayList<>();
+	ArrayList<Events> record = new ArrayList<Events>();
 
 	/**
 	 * Il costruttore scarica il json e lo rappresenta ad oggetti autonomamente,
@@ -49,7 +53,7 @@ public class Database implements EventsInterface {
 	 */
 
 	
-	
+	@Override
 	public  ArrayList<String> welcome() {
 
 		ArrayList<String> welcMsg = new ArrayList<>();
@@ -200,9 +204,10 @@ while ((riga = reader.readLine()) != null) {
 	@Override
 	public Map<String, String> getMetadata() {
 
-		return null;
+		return getMetadata();
 	}
-
+      
+	
 	/**
 	 * Questo metodo viene chiamato dal controllore per restituire il json contenuto
 	 * nella notra ArrayList
@@ -210,9 +215,16 @@ while ((riga = reader.readLine()) != null) {
 	 * jsonObject()
 	 */
 	
-	public  ArrayList<Events> getEvents() {
+	@Override
+	public ArrayList<Events> getEvents() {
 
 		return record;
+	}
+	
+	//@Override
+	public RestTemplate restTemplate () {
+		
+		return new RestTemplate();
 	}
 
 	
