@@ -43,8 +43,8 @@ public class Database implements EventsInterface {
 	 * senza doverlo richiedere esplicitamente
 	 */
 	Database() {
-		searchJson();
-		jsonObject();
+		//searchJson();
+		//jsonObject();
 	}
 
 	/**
@@ -73,14 +73,15 @@ public class Database implements EventsInterface {
 	 * programma se no effetua le operazioni.
 	 */
 	private void searchJson() {
-		File nf = new File("tiket.txt");
+		File nf = new File("ticket.txt");
 		boolean exists = nf.exists();
 		if (exists) {
 			return;
 		}
 
 		String apiKey = "    XTpeWYvnAIfhs0qIUxPkPSQRNbdcJ4bA   ";
-		String url = " https://app.ticketmaster.com/discovery/v2/events.json?apikey=" + apiKey;
+		String url = " https://app.ticketmaster.com/discovery/v2/events.json?page=2&size=100&apikey=" + apiKey;
+		//String url = " https://app.ticketmaster.com/discovery/v2/events.json?page=10&size=100&apikey=" + apiKey;
 		try {
 
 			URLConnection openConnection = new URL(url).openConnection();
@@ -99,25 +100,26 @@ public class Database implements EventsInterface {
 			} finally {
 				in.close();
 			}
+			//Map<String, >
 			// parsing del json
 			JSONObject obj = (JSONObject) JSONValue.parseWithException(data);
-			JSONObject objI = (JSONObject) (obj.get("result"));
-			JSONArray objA = (JSONArray) (objI.get("resources"));
-
-			for (Object o : objA) {
-				if (o instanceof JSONObject) {
-					JSONObject o1 = (JSONObject) o;
-					String format = (String) o1.get("format");
-					String urlD = (String) o1.get("url");
-					System.out.println(format + " | " + urlD);
-					if (format.endsWith("file-type/TXT")) {
-						System.out.println("OK");
-						scaricaJson(urlD, "tiket.txt");
-
-					}
-				}
-			}
-		} catch (IOException | ParseException e) {
+			JSONObject objI = (JSONObject) (obj.get("_embedded"));
+			JSONArray objA = (JSONArray) (objI.get("events"));
+			System.out.println(objA);
+//			for (Object o : objA) {
+//				if (o instanceof JSONObject) {
+//					JSONObject o1 = (JSONObject) o;
+//					String format = (String) o1.get("format");
+//					String urlD = (String) o1.get("url");
+//					System.out.println(format + " | " + urlD);
+//					if (format.endsWith("file-type/TXT")) {
+//						System.out.println("OK");
+//						scaricaJson(urlD, "tiket.txt");
+//
+//					}
+//				}
+//			}
+		} catch (/*IOException| */ ParseException e) {
 			System.out.println("Error!!"); // errore su IOException
 
 			System.out.println("Parsing error!");// errore sul json parsing

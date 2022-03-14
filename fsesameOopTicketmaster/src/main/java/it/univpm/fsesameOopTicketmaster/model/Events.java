@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 package it.univpm.fsesameOopTicketmaster.model;
 
 import java.util.ArrayList;
@@ -14,7 +12,6 @@ import org.springframework.context.annotation.Configuration;
  *
  */
 
-@Configuration
 
 public class Events {
 
